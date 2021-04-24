@@ -6,7 +6,7 @@ function handleSubmit(event) {
     let formText = document.getElementById('name').value
     if (Client.checkForName(formText)) {
         console.log("bleble")
-        fetch('https://localhost:8081/zara', {
+        fetch('http://localhost:8081/zara', {
             method: 'POST' ,
             credetials: 'same orgin',
             headers: {
@@ -16,29 +16,36 @@ function handleSubmit(event) {
         })
         .then((res) => res.json())
         .then((res) => {
-            updataUI(res);
-            console.log(res)
-    })
+            updateUI(res.json);
+            console.log(res.json())
+        
+    }).catch(err => console.log('err ========> ', err))
     }
     else {
         alert("Invalid URL")
     }   
     console.log("::: Form Submitted :::")
+    
 }
 
-const updateUI = async () => {
-        console.log("bkij")
-        const req = await fetch('/zara')
-        try{
-            const allData = await req.json()
-            console.log(res);
-            document.getElementById('confidence').innerHTML = `Confidence: ${confidence}`;
-            document.getElementById('subjec').innerHTML = `Subjecjectivity: ${subjec}`;
-            document.getElementById('score').innerHTML = `Score: ${score}`;
-        }catch(error){
-            console.log("error", error)
-        }  
+async function updateUI(res) {
+    document.getElementById('confidence').innerHTML = 'Confidence ' + res.confidence;
+    document.getElementById('subjec').innerHTML = 'Subjecjectivity ' + res.subjec;
+    document.getElementById('score').innerHTML = 'Score ' + res.score;
 }
+// const updateUI = async () => {
+//         console.log("bkij")
+//         const req = await fetch('/zara')
+//         try{
+//             const allData = await req.json()
+//             console.log(res);
+//             document.getElementById('confidence').innerHTML = `Confidence: ${confidence}`;
+//             document.getElementById('subjec').innerHTML = `Subjecjectivity: ${subjec}`;
+//             document.getElementById('score').innerHTML = `Score: ${score}`;
+//         }catch(error){
+//             console.log("error", error)
+//         }  
+// }
 
 
 export { handleSubmit }
