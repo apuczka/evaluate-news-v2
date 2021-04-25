@@ -16,7 +16,7 @@ function handleSubmit(event) {
         })
         .then((res) => res.json())
         .then((res) => {
-            updateUI(res.json);
+            updateUI(res.json());
             console.log(res.json())
         
     }).catch(err => console.log('err ========> ', err))
@@ -33,19 +33,6 @@ async function updateUI(res) {
     document.getElementById('subjec').innerHTML = 'Subjecjectivity ' + res.subjec;
     document.getElementById('score').innerHTML = 'Score ' + res.score;
 }
-// const updateUI = async () => {
-//         console.log("bkij")
-//         const req = await fetch('/zara')
-//         try{
-//             const allData = await req.json()
-//             console.log(res);
-//             document.getElementById('confidence').innerHTML = `Confidence: ${confidence}`;
-//             document.getElementById('subjec').innerHTML = `Subjecjectivity: ${subjec}`;
-//             document.getElementById('score').innerHTML = `Score: ${score}`;
-//         }catch(error){
-//             console.log("error", error)
-//         }  
-// }
 
 
 export { handleSubmit }
