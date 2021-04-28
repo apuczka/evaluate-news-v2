@@ -5,7 +5,6 @@ function handleSubmit(event) {
     // check what text was put into the form field
     let formText = document.getElementById('name').value
     if (Client.checkForName(formText)) {
-        console.log("bleble")
         fetch('http://localhost:8081/zara', {
             method: 'POST' ,
             credetials: 'same orgin',
@@ -13,14 +12,15 @@ function handleSubmit(event) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ formText }),
-        })
-        .then((res) => res.json())
+    })
         .then((res) => {
-            updateUI(res.json());
-            console.log(res.json())
-        
-    }).catch(err => console.log('err ========> ', err))
-    }
+            return res.json()
+        })
+        .then((result) => {
+            console.log('result => ', result)
+            updateUI(result);
+        }).catch(err => console.log('err ========> ', err))
+    } 
     else {
         alert("Invalid URL")
     }   
@@ -30,8 +30,8 @@ function handleSubmit(event) {
 
 async function updateUI(res) {
     document.getElementById('confidence').innerHTML = 'Confidence ' + res.confidence;
-    document.getElementById('subjec').innerHTML = 'Subjecjectivity ' + res.subjec;
-    document.getElementById('score').innerHTML = 'Score ' + res.score;
+    document.getElementById('subjec').innerHTML = 'Subjecjectivity ' + res.subjectivity;
+    document.getElementById('score').innerHTML = 'Score ' + res.score_tag;
 }
 
 
